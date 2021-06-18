@@ -26,20 +26,10 @@
     var start = Date.now;
     numTrials = 10;
     duration = 30000;
-    //mention that it automatically progresses
-    //should redeploy rating study with less relevant features? such as: "have large feet relative to their body size", "are quiet", "have good hearing", "is ugly", "long hair", "comes in lots of colors", ""]
     var ds = ["dangerous", "large", "striking", "cool", "lifespan", "has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
     //array of prompts
     var descriptors = jsPsych.randomization.sampleWithoutReplacement(ds, 10);
-    var questions = {"dangerous": "is dangerous", "large": "is large", "striking": "is striking", "cool": "is cool", "lifespan": "has a long lifespan", "has large feet relative to its body size": "has large feet relative to its body size", "quiet": "is quiet", "has good hearing": "has good hearing", "has long hair": "has long hair", "sleeps very little": "sleeps very little"}
-    // List zoo animals that are dangerous
-    // List zoo animals that are small
-    // List zoo animals that are aquatic
-    // List zoo animals that have small feet
-    // List zoo animals that are graceful
-    // List zoo animals that are scaley
-    // List zoo animals that are quiet
-    // List zoo animals that are omnivorous
+    var questions = {"dangerous": "is dangerous", "large": "is large", "striking": "is striking", "cool": "is cool", "lifespan": "has a long lifespan", "has large feet relative to its body size": "has large feet relative to its body size", "quiet": "is quiet", "has good hearing": "has good hearing", "has long hair": "has long hair", "sleeps very little": "sleeps very little"};
     // how many can you list?
         //if more, seem to represent animals along that dimension..? Moreso than just naming animals that are that thing
         //find it natural to think about animals that are that thing
@@ -82,13 +72,12 @@
     //set instructions
     var instructions = {
         type: "html-keyboard-response",
-        stimulus: "In this experiment, you will be asked to list zoo animals that fit a certain description.<br><br> You will have " + duration/1000 + " seconds per round to give answers. Please work as fast as you can, listing zoo animals that you think fit the description as quickly as possible.<br><br> Type one zoo animal per text box, and then press enter.<br><br>Press any key to begin."
+        stimulus: "In this experiment, you will be asked to list zoo animals that fit a certain description.<br><br> You will have " + duration/1000 + " seconds per round to give answers, after which the round will automatically end. Please work as fast as you can, listing zoo animals that you think fit the description as quickly as possible.<br><br> Type one zoo animal per text box, and then press enter.<br><br>Press any key to begin."
     };
     timeline.push(instructions)
     
     var j = 0;
     for(var i=0; i<numTrials; i++){
-        console.log(i);
         var timer_start = {
             type: 'call-function',
             func: function(){
