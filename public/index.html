@@ -110,17 +110,18 @@
         };
 
         var debrief = {
-            type: "html-keyboard-response",
+            type: "html-button-response",
             stimulus: function(){
                 j = j+1;
                 if(j<numTrials) {
-                    var msg = "The round has finished!<br><br> Please continue to list zoo animals as quickly as possible, pressing enter after each response. <br><br> Press the space bar when you're ready to continue.";
+                    var msg = "The round has finished!<br><br> Please continue to list zoo animals as quickly as possible, pressing enter after each response. <br><br> Click 'Continue' when you're ready for the next round.";
                 }
                 else {
-                    var msg = "The round has finished! Press the space bar when you're ready to continue.";
+                    var msg = "The round has finished! Click 'Continue' to continue with the study.";
                 }
                 return msg;
             },
+            choices: ['Continue'],
         }
         
         timeline.push(timer_start, q_timeline, debrief);
