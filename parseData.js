@@ -22,6 +22,11 @@
                 if(!("responses" in trial)) {
                     trialIndex = trialIndex + 1;
                     trial = JSON.parse(JSON.stringify(data[trialIndex]));
+                    //no responses in this trial, and descriptor not yet recorded for this question
+                    if(qData.descriptor == null) {
+                        //console.log(trial["descriptors"]);
+                        qData.descriptor = trial["descriptors"][qData.q_order-1];
+                    }
                     continue; //nothing to add from this trial
                 }
                 var responses = JSON.parse(trial["responses"]);
