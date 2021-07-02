@@ -2,7 +2,7 @@
 
     //reformat data before saving
     function reformatData(data) {
-        var numQs = 10;
+        var numQs = 8;
         var startIndex = 5;
         //list of dictionaries, where each dictionary keeps the data for a single trial
         //Those dictionaries will become  rows in the data table
