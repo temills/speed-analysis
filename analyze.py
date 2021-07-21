@@ -5,19 +5,22 @@ from difflib import get_close_matches
 import numpy as np
 import random
 import pandas as pd
-#p values for corrs
-#compare average number of responses for each descriptor to correlation with coming to mind
-#compare time of first n responses for each descriptor
-#also look within subject - distance from average for subject?
+
+
+#TODO
+#combine response time/num responses into single metric signifying ease of response
+#perform speed analysis on other categories
+#and then concat data (descriptor corr. w coming to mind, and ease of response to descriptor) to get overall corr
 
 #speed data
 with open('/Users/traceymills/consideration/speed-analysis/data.csv.json') as f:
   data = json.load(f)
 data = sorted(data, key=lambda k: k['subject_id'])
 #correlation of descriptor with coming to mind, as calculated from rating data
-genCorr = {'large': 0.3443250488940599, 'cool': 0.2786921485840363, 'striking': 0.35164786386252667, 'dangerous': 0.3241003513545623, 'lifespan': 0.31874309221991487, 'has large feet relative to its body size': 0.07622946411113914, 'quiet': -0.20459332100398267, 'has good hearing': 0.07487908633416952, 'has long hair': 0.10441947183906619, 'sleeps very little': -0.04724035442610212}
-
-descriptors1 = ["large", "cool", "striking", "dangerous", "lifespan"]
+#genCorr = {'large': 0.3443250488940599, 'cool': 0.2786921485840363, 'striking': 0.35164786386252667, 'dangerous': 0.3241003513545623, 'lifespan': 0.31874309221991487, 'has large feet relative to its body size': 0.07622946411113914, 'quiet': -0.20459332100398267, 'has good hearing': 0.07487908633416952, 'has long hair': 0.10441947183906619, 'sleeps very little': -0.04724035442610212}
+genCorr = {'type, mammal': 0.18894731849701007, 'diet, carnivore': 0.2038779167838987, 'large': 0.3458998251843229, 'cute': 0.05406309013621359, 'cool': 0.2777483689929533, 'normal': -0.18053805054990885, 'striking': 0.3521983036172046, 'dangerous': 0.3271850392200191, 'tropics': 0.04016115026339956, 'land': 0.12875489519410027, 'lifespan': 0.317285976201681, 'think': 0.10311812598072409, 'awake': 0.06481348622086591,'has large feet relative to its body size': 0.07622946411113914, 'quiet': -0.20459332100398267, 'has good hearing': 0.07487908633416952, 'has long hair': 0.10441947183906619, 'sleeps very little': -0.04724035442610212}
+#descriptors1 = ["large", "cool", "striking", "dangerous", "lifespan"]
+descriptors1 = ["large", "cool", "striking", "dangerous", "lifespan", "cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"]
 descriptors2 = ["has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
 descriptors = descriptors1 + descriptors2
 
@@ -50,8 +53,9 @@ def getNumResPerDescriptor():
         resDict[d] = resDict[d][0]/resDict[d][1]
     return resDict
 numResPerDescriptor = getNumResPerDescriptor()
+for i in numResPerDescriptor.keys():
+    print(i + ": " + str(numResPerDescriptor[i])+", " + str(genCorr[i]))
 #correlation between generation and ave num responses for each descriptor
-#print(getGenCorr(numResPerDescriptor))
 
 
 #returns time it took to give first n responses for each descriptor
@@ -70,12 +74,17 @@ def getFirstNResponseTime(n):
     for d in resDict.keys():
         resDict[d] = resDict[d][0]/resDict[d][1]
     return resDict
-firstNResponseTime = getFirstNResponseTime(1)
+firstNResponseTime = getFirstNResponseTime(2)
 #correlation between generation and rave esponse time for first n responses for each descriptor
 #print(getGenCorr(firstNResponseTime))
 
-
-
+def getCorr(d1,d2):
+    x, y = [], []
+    for d in descriptors:
+        x.append(d1[d])
+        y.append(d2[d])
+    return np.corrcoef(x, y)[0][1]
+print(getCorr(firstNResponseTime,numResPerDescriptor))
 ######### within subject ###########
 
 #get average distance from subject average of number of responses given in timed trial for each descriptor
@@ -150,8 +159,8 @@ for d in descriptors:
     a2.append(numResPerDescriptor[d])
     a3.append(firstNResponseTime[d])
     des.append(d)
-print(a1)
-print(a2)
-print(a3)
-print(des)
+#print(a1)
+#print(a2)
+#print(a3)
+#print(des)
 

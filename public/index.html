@@ -26,11 +26,14 @@
     var start = Date.now;
     numTrials = 8;
     duration = 30000;
+    category = 'vegetables';
     //var ds = ["dangerous", "large", "striking", "cool", "lifespan", "has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
-    var ds = ["cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"];
+    //var ds = ["cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"];
+    var ds = ["dishes", "popular", "available", "crunchy", "think", "warm", "heavy", "calories", "fragrant", "sweet"];
     //array of prompts
     var descriptors = jsPsych.randomization.sampleWithoutReplacement(ds, 8);
-    var questions = {"cute": "is cute", "normal": "is normal", "tropics":"lives in the tropics", "land": "lives on land", "think":"you think about often", "awake":"is awake during the day", "type, mammal":"is a mammal", "diet, carnivore":"is a carnivore"};
+    var questions = {"dishes":"is used in a large variety of dishes", "popular":"is popular", "available":"is widely available", "think":"you think about often", "fragrant":"is fragrant", "warm":"grows in warm climates", "sweet":"is sweet", "crunchy":"is crunchy.", "heavy":"is heavy for its size.", "calories":"is relatively high in calories."}
+    //var questions = {"cute": "is cute", "normal": "is normal", "tropics":"lives in the tropics", "land": "lives on land", "think":"you think about often", "awake":"is awake during the day", "type, mammal":"is a mammal", "diet, carnivore":"is a carnivore"};
     //var questions = {"dangerous": "is dangerous", "large": "is large", "striking": "is striking", "cool": "is cool", "lifespan": "has a long lifespan", "has large feet relative to its body size": "has large feet relative to its body size", "quiet": "is quiet", "has good hearing": "has good hearing", "has long hair": "has long hair", "sleeps very little": "sleeps very little"};
     //how many can you list?
         //if more, seem to represent animals along that dimension..? Moreso than just naming animals that are that thing
@@ -78,7 +81,7 @@
     //set instructions
     var instructions = {
         type: "html-keyboard-response",
-        stimulus: "In this experiment, you will be asked to list zoo animals that fit a certain description.<br><br> You will have " + duration/1000 + " seconds per round to give answers, after which the round will automatically end. Please work as fast as you can, listing zoo animals that you think fit the description as quickly as possible.<br><br> Type one zoo animal per text box, and then press enter.<br><br>Press any key to begin."
+        stimulus: "In this experiment, you will be asked to list " + category + " that fit a certain description.<br><br> You will have " + duration/1000 + " seconds per round to give answers, after which the round will automatically end. Please work as fast as you can, listing "+ category + " that you think fit the description as quickly as possible.<br><br> Type one vegetable per text box, and then press enter.<br><br>Press any key to begin."
     };
     timeline.push(instructions)
     
@@ -100,7 +103,7 @@
                     type: 'survey-text',
                     var: d = descriptors[i],
                     var: q = questions[d],
-                    preamble: "<br> List a zoo animal that " + q + ". <br><br> Then press enter.",
+                    preamble: "<br> List a vegetable that " + q + ". <br><br> Then press enter.",
                     questions: [
                         { prompt: "", required: true, name: d},
                     ],
@@ -120,7 +123,7 @@
             stimulus: function(){
                 j = j+1;
                 if(j<numTrials) {
-                    var msg = "The round has finished!<br><br> Please continue to list zoo animals as quickly as possible, pressing enter after each response. <br><br> Click 'Continue' when you're ready for the next round. <br><br>";
+                    var msg = "The round has finished!<br><br> Please continue to list  "+ category + " as quickly as possible, pressing enter after each response. <br><br> Click 'Continue' when you're ready for the next round. <br><br>";
                 }
                 else {
                     var msg = "The round has finished! Click 'Continue' to continue with the study. <br><br>";
