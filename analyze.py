@@ -13,7 +13,8 @@ import pandas as pd
 #and then concat data (descriptor corr. w coming to mind, and ease of response to descriptor) to get overall corr
 
 #speed data
-with open('/Users/traceymills/consideration/speed-analysis/data.csv.json') as f:
+#with open('/Users/traceymills/consideration/speed-analysis/data.csv.json') as f:
+with open('/Users/traceymills/consideration/speed-analysis/vegetables.json') as f:
   data = json.load(f)
 data = sorted(data, key=lambda k: k['subject_id'])
 #correlation of descriptor with coming to mind, as calculated from rating data
@@ -23,6 +24,12 @@ genCorr = {'type, mammal': 0.18894731849701007, 'diet, carnivore': 0.20387791678
 descriptors1 = ["large", "cool", "striking", "dangerous", "lifespan", "cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"]
 descriptors2 = ["has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
 descriptors = descriptors1 + descriptors2
+
+descriptors = ["dishes", "popular", "available", "crunchy", "think", "warm", "heavy", "calories", "fragrant", "sweet"]
+genCorr = {'think': 0.47655677204291835, 'dishes': 0.5705715245609457, 'popular': 0.5414066993921484, 'available': 0.7111093760951049, 'fragrant': -0.11504084613286147, 'warm': -0.05142553559714049, 'sweet': 0.16918140757029312, 'crunchy': 0.4246094506168629, 'heavy': 0.03928128161072006, 'calories': -0.09369407427843358}
+
+descriptors = ["interesting side dishes", "soft food", "cold food", "desserts", "healthy", "popular", "many locations", "casual", "quick", "brightly colored logo"]
+genCorr = {'interesting side dishes': 0.05797794277449986, 'soft food': 0.11357816033282128, 'cold food': -0.0679028961223725, 'desserts': 0.052718285665607136 'popular': 0.4220453392935601, 'many locations': 0.5335387989116023, 'is unique': -0.2925555800029079, 'healthy': -0.012857634523901745, 'brightly colored logo': 0.2826773815547698, 'lively': 0.12550827795437736, 'variety': 0.17920547046707774, 'well decorated': 0.11966768704986638, 'expensive': -0.29991989021440446, 'quick': 0.24504742209076236, 'casual': 0.23089662426660587}
 
 animals = ["leopard", "chimp", "beetle", "llama", "hyena", "mouse", "horse", "goat", "zebra", "antelope", "sea lion", "fox", "deer", "tarantula", "bat", "meerkat", "buffalo", "giraffe", "bull", "whale", "rabbit", "lion", "hippo", "baboon", "bird", "monkey", "snake", "tiger", "panther", "kangaroo", "owl", "elephant", "otter", "rhino", "cheetah", "gazelle", "alligator", "penguin", "panda", "parrot", "eagle", "polar bear", "koala", "ostrich", "crocodile", "dolphin", "lemur", "turtle", "gorilla", "wolf", "shark", "cow", "peacock", "jaguar", "camel", "platypus", "flamingo", "duck", "sloth", "seal", "grizzly bear", "lizard", "fish"]
 
