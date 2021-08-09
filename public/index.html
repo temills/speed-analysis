@@ -26,15 +26,17 @@
     var start = Date.now;
     numTrials = 8;
     duration = 30000;
-    category = 'sports';
+    category = 'holidays';
     //var ds = ["dangerous", "large", "striking", "cool", "lifespan", "has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
     //var ds = ["cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"];
     //var ds = ["dishes", "popular", "available", "crunchy", "think", "warm", "heavy", "calories", "fragrant", "sweet"];
     //var ds = descriptors = ["interesting side dishes", "soft food", "cold food", "desserts", "healthy", "popular", "many locations", "casual", "quick", "brightly colored logo"]
-    var ds = ['think', 'popular', 'spectators', 'competitive', 'strenuous', 'dangerous', 'expensive', 'been around', 'flexibility', 'learn'];
+    //var ds = ['think', 'popular', 'spectators', 'competitive', 'strenuous', 'dangerous', 'expensive', 'been around', 'flexibility', 'learn'];
+    var ds = ['religious', 'political', 'around', 'family oriented', 'partying', 'time off', 'romantic', 'traditions', 'food', 'likes', 'think', 'widely celebrated', 'reflective', 'joyous', 'meaningful', 'early'];
     //array of prompts
     var descriptors = jsPsych.randomization.sampleWithoutReplacement(ds, 8);
-    var questions = {'think': "you think about often", 'popular': "is popular", 'dangerous':'is dangerous', 'strenuous':"is strenuous", 'spectators':"draws many spectators", 'competitive':"is competitive", 'expensive':"is expensive to play", 'been around':"has been around for a long time", 'learn':"is easy to learn", 'flexibility':"requires flexibility"}
+    var questions = {'religious':'is religious', 'political':'is political', 'around':'has been around for a long time', 'family oriented':'is family oriented', 'partying':'involves partying', 'time off':'people get time off work for', 'romantic':'is romantic.', 'traditions':'involves specific traditions', 'food':'is associated with certain foods', 'likes':'you like', 'think':'you think about often', 'widely celebrated':'is widely celebrated', 'reflective':'is reflective', 'joyous':'is joyous', 'meaningful':'is meaningful', 'early':'is celebrated early in the year'};
+    //var questions = {'think': "you think about often", 'popular': "is popular", 'dangerous':'is dangerous', 'strenuous':"is strenuous", 'spectators':"draws many spectators", 'competitive':"is competitive", 'expensive':"is expensive to play", 'been around':"has been around for a long time", 'learn':"is easy to learn", 'flexibility':"requires flexibility"}
     //var questions =  {"interesting side dishes": "serves interesting side dishes", "soft food": "This restaurant serves mostly soft food", "cold food": "serves mostly cold food", "desserts": "serves a variety of desserts", "popular":"is popular", "many locations":"has many locations", "healthy":"is healthy", "brightly colored logo":"has a brightly colored logo", "quick":"is quick", "casual":"is casual"};
 
     //var questions = {"dishes":"is used in a large variety of dishes", "popular":"is popular", "available":"is widely available", "think":"you think about often", "fragrant":"is fragrant", "warm":"grows in warm climates", "sweet":"is sweet", "crunchy":"is crunchy", "heavy":"is heavy for its size", "calories":"is relatively high in calories"}
@@ -86,7 +88,7 @@
     //set instructions
     var instructions = {
         type: "html-keyboard-response",
-        stimulus: "In this experiment, you will be asked to list " + category + " that fit a certain description.<br><br> You will have " + duration/1000 + " seconds per round to give answers, after which the round will automatically end. Please work as fast as you can, listing "+ category + " that you think fit the description as quickly as possible.<br><br> Type one sport per text box, and then press enter.<br><br>Press any key to begin."
+        stimulus: "In this experiment, you will be asked to list " + category + " that fit a certain description.<br><br> You will have " + duration/1000 + " seconds per round to give answers, after which the round will automatically end. Please work as fast as you can, listing "+ category + " that you think fit the description as quickly as possible.<br><br> Type one holiday per text box, and then press enter.<br><br>Press any key to begin."
     };
     timeline.push(instructions)
     
@@ -108,7 +110,7 @@
                     type: 'survey-text',
                     var: d = descriptors[i],
                     var: q = questions[d],
-                    preamble: "<br> List a sport that " + q + ". <br><br> Then press enter.",
+                    preamble: "<br> List a holiday that " + q + ". <br><br> Then press enter.",
                     questions: [
                         { prompt: "", required: true, name: d},
                     ],
