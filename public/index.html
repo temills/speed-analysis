@@ -17,16 +17,23 @@
     </head>
     <body></body>
     <script>
+        
     //we might represent animals according to certain features (representation for the animal includes some value for the feature)
     //people can more quickly rank animals along these features vs other less relevant features
     //features that are involved in representations might correlate with coming to mind
     //mix of descriptors that correlated with coming to mind, didn't really correlate, and that we don't think would correlate
-    //should have opposites to see if both ends of the spectrum are represented
-  
+    //should have opposites to see if both ends of the spectrum are represented     
+    //how quickly do responses come to mind?
+        //if more so, seem to represent animals along that dimension..? Moreso than just naming animals that are that thing
+        //find it natural to think about animals that are that thing
+        //better to see how fast people decide that an animal is that thing?
+
     var start = Date.now;
     numTrials = 8;
     duration = 30000;
+
     category = 'jobs';
+
     //var ds = ["dangerous", "large", "striking", "cool", "lifespan", "has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
     //var ds = ["cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"];
     //var ds = ["dishes", "popular", "available", "crunchy", "think", "warm", "heavy", "calories", "fragrant", "sweet"];
@@ -36,22 +43,19 @@
     //var ds = ['reflective', 'early', 'partying', 'political', 'meaningful', 'time off', 'think', 'likes', 'romantic', 'widely celebrated']
     //var ds = ['common', 'essential', 'plain sight', 'often', 'think', 'dangerous', 'loud', 'metallic', 'expensive', 'easy', 'heavy']
     var ds = ['people oriented', 'common', 'think', 'important', 'creativity', 'dangerous', 'physical', 'been around', 'glamorous', 'male dominated', 'difficult'];
+    
     //array of prompts
     var descriptors = jsPsych.randomization.sampleWithoutReplacement(ds, 8);
+        
     //var questions = {'common': 'is commonly owned', 'essential': 'is essential', 'plain sight':'is kept in plain sight', 'often':'is used often', 'think':'you think about often', 'dangerous':'is dangerous', 'loud':'is loud', 'metallic':'is metallic', 'expensive':'is expensive', 'easy':'is easy to use', 'heavy':'is heavy for its size'}
-    var questions = {'people oriented':'is people oriented', 'common':'is common', 'think':'you think about often', 'important':'is important', 'creativity':'requires creativity', 'physical':'is very physical', 'dangerous':'is dangerous', 'been around':'has been around for a long time', 'glamorous':'is glamorous', 'male dominated':'is male dominated', 'difficult':'is difficult'};
-
     //var questions = {'religious':'is religious', 'political':'is political', 'around':'has been around for a long time', 'family oriented':'is family oriented', 'partying':'involves partying', 'time off':'people get time off work for', 'romantic':'is romantic', 'traditions':'involves specific traditions', 'food':'is associated with certain foods', 'likes':'you like', 'think':'you think about often', 'widely celebrated':'is widely celebrated', 'reflective':'is reflective', 'joyous':'is joyous', 'meaningful':'is meaningful', 'early':'is celebrated early in the year'};
     //var questions = {'think': "you think about often", 'popular': "is popular", 'dangerous':'is dangerous', 'strenuous':"is strenuous", 'spectators':"draws many spectators", 'competitive':"is competitive", 'expensive':"is expensive to play", 'been around':"has been around for a long time", 'learn':"is easy to learn", 'flexibility':"requires flexibility"}
     //var questions =  {"interesting side dishes": "serves interesting side dishes", "soft food": "This restaurant serves mostly soft food", "cold food": "serves mostly cold food", "desserts": "serves a variety of desserts", "popular":"is popular", "many locations":"has many locations", "healthy":"is healthy", "brightly colored logo":"has a brightly colored logo", "quick":"is quick", "casual":"is casual"};
-
     //var questions = {"dishes":"is used in a large variety of dishes", "popular":"is popular", "available":"is widely available", "think":"you think about often", "fragrant":"is fragrant", "warm":"grows in warm climates", "sweet":"is sweet", "crunchy":"is crunchy", "heavy":"is heavy for its size", "calories":"is relatively high in calories"}
     //var questions = {"cute": "is cute", "normal": "is normal", "tropics":"lives in the tropics", "land": "lives on land", "think":"you think about often", "awake":"is awake during the day", "type, mammal":"is a mammal", "diet, carnivore":"is a carnivore"};
     //var questions = {"dangerous": "is dangerous", "large": "is large", "striking": "is striking", "cool": "is cool", "lifespan": "has a long lifespan", "has large feet relative to its body size": "has large feet relative to its body size", "quiet": "is quiet", "has good hearing": "has good hearing", "has long hair": "has long hair", "sleeps very little": "sleeps very little"};
-    //how many can you list?
-        //if more, seem to represent animals along that dimension..? Moreso than just naming animals that are that thing
-        //find it natural to think about animals that are that thing
-        //better to see how fast people decide that an animal is that thing?
+    var questions = {'people oriented':'is people oriented', 'common':'is common', 'think':'you think about often', 'important':'is important', 'creativity':'requires creativity', 'physical':'is very physical', 'dangerous':'is dangerous', 'been around':'has been around for a long time', 'glamorous':'is glamorous', 'male dominated':'is male dominated', 'difficult':'is difficult'};
+
 
     // meta-variables - fill in
     var turk_code = jsPsych.randomization.randomID(12);
