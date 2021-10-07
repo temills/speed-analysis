@@ -5,7 +5,7 @@ from difflib import get_close_matches
 import numpy as np
 import random
 import pandas as pd
-
+"""
 with open('/Users/traceymills/consideration/speed-analysis/data.csv.json') as f:
  data = json.load(f)
 descriptors1 = ["large", "cool", "striking", "dangerous", "lifespan", "cute", "normal", "land", "think", "awake", "type, mammal", "tropics", "diet, carnivore"]
@@ -13,7 +13,7 @@ descriptors1 = ["large", "cool", "striking", "dangerous", "lifespan"]
 descriptors2 = ["has large feet relative to its body size", "quiet", "has good hearing", "has long hair", "sleeps very little"]
 descriptors = descriptors1 + descriptors2
 genCorr = {'type, mammal': 0.18894731849701007, 'diet, carnivore': 0.2038779167838987, 'large': 0.3458998251843229, 'cute': 0.05406309013621359, 'cool': 0.2777483689929533, 'normal': -0.18053805054990885, 'striking': 0.3521983036172046, 'dangerous': 0.3271850392200191, 'tropics': 0.04016115026339956, 'land': 0.12875489519410027, 'lifespan': 0.317285976201681, 'think': 0.10311812598072409, 'awake': 0.06481348622086591,'has large feet relative to its body size': 0.07622946411113914, 'quiet': -0.20459332100398267, 'has good hearing': 0.07487908633416952, 'has long hair': 0.10441947183906619, 'sleeps very little': -0.04724035442610212}
-
+"""
 
 # with open('/Users/traceymills/consideration/speed-analysis/vegetables.json') as f:
 #  data = json.load(f)
@@ -40,17 +40,28 @@ genCorr = {'type, mammal': 0.18894731849701007, 'diet, carnivore': 0.20387791678
 # descriptors = ['common', 'essential', 'plain sight', 'often', 'think', 'dangerous', 'loud', 'metallic', 'expensive', 'easy', 'heavy']
 # genCorr = {'expensive': 0.17403243707330637, 'large': 0.3156406209802045, 'requires electricity': 0.278298673234939, 'gets hot': 0.30456517983814224, 'specialized': -0.2945935281445191, 'common': 0.5323111426150905, 'dangerous': 0.10255125976511446, 'essential': 0.45066043215834845, 'loud': -0.14225560857539987, 'heavy': 0.23928122712203087, 'plain sight': 0.5310725900811576, 'often': 0.48771763519993, 'easy': 0.2665930694697609, 'likes': 0.44938429739354896, 'think': 0.5094253391194362, 'metallic': 0.013828408304296968}
 
-with open('/Users/traceymills/consideration/speed-analysis/jobs.json') as f:#
-    data = json.load(f)
-descriptors = ['people oriented', 'common', 'think', 'important', 'creativity', 'dangerous', 'physical', 'been around', 'glamorous', 'male dominated', 'difficult']
-genCorr = {'people oriented': 0.17076524068052476, 'pays well': 0.1387987737619098, 'desirable': 0.10129620798819618, 'common': 0.2546180555663148, 'think': 0.07498222261861116, 'likes': 0.1521180329930711, 'important': 0.2368511770294124, 'creativity': -0.005579682718462679, 'skills': 0.16581927741987965, 'physical': 0.0038028483717259943, 'dangerous': 0.0190282279225156, 'detail oriented': 0.16115413823914826, 'been around': 0.2588587970296977, 'glamorous': 0.00049943902030669, 'male dominated': 0.009671553455618126, 'difficult': 0.1549744021970941}
+#with open('/Users/traceymills/consideration/speed-analysis/jobs.json') as f:#
+#   data = json.load(f)
+#descriptors = ['people oriented', 'common', 'think', 'important', 'creativity', 'dangerous', 'physical', 'been around', 'glamorous', 'male dominated', 'difficult']
+#genCorr = {'people oriented': 0.17076524068052476, 'pays well': 0.1387987737619098, 'desirable': 0.10129620798819618, 'common': 0.2546180555663148, 'think': 0.07498222261861116, 'likes': 0.1521180329930711, 'important': 0.2368511770294124, 'creativity': -0.005579682718462679, 'skills': 0.16581927741987965, 'physical': 0.0038028483717259943, 'dangerous': 0.0190282279225156, 'detail oriented': 0.16115413823914826, 'been around': 0.2588587970296977, 'glamorous': 0.00049943902030669, 'male dominated': 0.009671553455618126, 'difficult': 0.1549744021970941}
+#
 
+#category
+cat = 'animal'
+
+#subject responses
+with open('response_data/'+cat+'s.json') as f:
+    data = json.load(f)
 data = sorted(data, key=lambda k: k['subject_id'])
 
-animals = ["leopard", "chimp", "beetle", "llama", "hyena", "mouse", "horse", "goat", "zebra", "antelope", "sea lion", "fox", "deer", "tarantula", "bat", "meerkat", "buffalo", "giraffe", "bull", "whale", "rabbit", "lion", "hippo", "baboon", "bird", "monkey", "snake", "tiger", "panther", "kangaroo", "owl", "elephant", "otter", "rhino", "cheetah", "gazelle", "alligator", "penguin", "panda", "parrot", "eagle", "polar bear", "koala", "ostrich", "crocodile", "dolphin", "lemur", "turtle", "gorilla", "wolf", "shark", "cow", "peacock", "jaguar", "camel", "platypus", "flamingo", "duck", "sloth", "seal", "grizzly bear", "lizard", "fish"]
+#correlations between descriptors and items coming to mind
+with open('../item-ratings/descriptor-generation-correlations/'+cat+'s.json') as f:
+    genCorr = json.load(f)
+
 
 #get correlation between desriptor generation score and whatever dict is passed in
 def getGenCorr(descriptorData):
+    descriptors = descriptorData.keys()
     x, y = [], []
     for d in descriptors:
         x.append(descriptorData[d])
@@ -58,6 +69,42 @@ def getGenCorr(descriptorData):
     return np.corrcoef(x, y)[0][1]
 
 ##### all subjects ######
+
+#measures ease of response to each descriptor
+#first/time+second/time...
+def getCombinedResponseMetric():
+    times = {}
+    scores = {}
+    firsts = {}
+    for trial in data:
+        score = 0
+        d = trial["descriptor"]
+        if(d=="awake"):
+            d = "awake, day"
+        if trial["responses"] != "":
+            rtList = list(map(float, trial["rt"].split(",")))
+            score = sum([(1000/rt) for rt in rtList])
+        scores[d] = scores.get(d, [0,0])
+        scores[d][0] = scores[d][0] + score
+        scores[d][1] = scores[d][1] + 1
+        if(trial["q_order"]==1):
+            firsts[d] = firsts.get(d, [])
+            firsts[d].append(score)
+    combined = {}
+    for d in scores.keys():
+        combined[d] = scores[d][0]/scores[d][1]
+    return combined, firsts
+
+
+comb, firsts = getCombinedResponseMetric()
+with open('descriptor-speed-data/'+cat+'s.json', 'w') as f:
+  json.dump(comb, f)
+
+corrs = getGenCorr(comb)
+#correlation between descriptor's correlation with coming to mind, and ease of response to descriptor
+with open('descriptor-speed-correlations/'+cat+'s.json', 'w') as f:
+  json.dump(corrs, f)
+
 
 #get average number of responses given in timed trial for each descriptor
 def getNumResPerDescriptor():
@@ -100,36 +147,6 @@ def getFirstNResponseTime(n):
 firstNResponseTime = getFirstNResponseTime(2)
 #correlation between generation and rave esponse time for first n responses for each descriptor
 #print(getGenCorr(firstNResponseTime))
-
-
-#first/time+second/time...
-def getCombinedResponseMetric():
-    times = {}
-    scores = {}
-    firsts = {}
-    for trial in data:
-        score = 0
-        d = trial["descriptor"]
-        if trial["responses"] != "":
-            rtList = list(map(float, trial["rt"].split(",")))
-            score = sum([(1000/rt) for rt in rtList])
-        scores[d] = scores.get(d, [0,0])
-        scores[d][0] = scores[d][0] + score
-        scores[d][1] = scores[d][1] + 1
-        if(trial["q_order"]==1):
-            firsts[d] = firsts.get(d, [])
-            firsts[d].append(score)
-    combined = {}
-    for d in descriptors:
-        combined[d] = scores[d][0]/scores[d][1]
-    return combined, firsts
-
-comb, firsts = getCombinedResponseMetric()
-#for d in descriptors:
-#    print(d + ":")
-#    print(str(comb[d]) + ", " + str(sum(firsts.get(d,[]))/max(1, len(firsts.get(d,[])))) + ", " + str(firsts.get(d,[])))
-print("correlation for this category:")
-print(getGenCorr(comb))
 
 
 def getCorr(d1,d2):
