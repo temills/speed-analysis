@@ -1,4 +1,4 @@
-# Item Ratings
+# Timed Item Generations
 
 ## Study
 
